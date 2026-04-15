@@ -74,5 +74,5 @@ gcc pcopy.c -o pcopy -lpthread
 
 -----
 
-**Author:** [Kartik Raman](https://www.google.com/search?q=https://github.com/your-username)  
+**Author:** [Kaushal Kishor Pal]  
 **Focus:** Computer Science | Systems 
