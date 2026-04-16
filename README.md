@@ -19,6 +19,16 @@ In standard file copying, a single process reads and writes data sequentially. T
   * **Efficient Memory Management**: Implements a 64KB buffer per thread to balance RAM usage and I/O throughput.
   * **High-Resolution Timing**: Uses `CLOCK_MONOTONIC` to measure performance with nanosecond precision.
 
+##  Choosing the right buffer size directly impacts performance.
+
+Small buffer (e.g., 4 KB) → more system calls, higher CPU overhead.
+
+Large buffer (e.g., 1 MB) → fewer system calls, better throughput, especially on fast storage.
+
+For very large files (hundreds of MB or GB), a larger buffer is beneficial because it amortises the cost of each pread/pwrite over more data. However, extremely large buffers (tens of MB) offer diminishing returns and increase memory footprint. The default 1 MB strikes a good balance for most systems.
+
+You can adjust the buffer size by changing the BUFFER_SIZE macro at the top of the source file.
+
 ##  Implementation Details
 
 ###  The Thread Worker
