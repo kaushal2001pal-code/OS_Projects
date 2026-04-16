@@ -29,7 +29,7 @@ When we call the library, it fills this container with everything the Operating 
 
 #include <time.h>
 
-#define NUM_THREADS 1 /*Set to 4, meaning the file will be split into 4 parts*/
+#define NUM_THREADS 4 /*Set to 4, meaning the file will be split into 4 parts*/
 
 /*Set to 64KB. 
 Each thread reads/writes in these small bites to avoid overwhelming the system memory (RAM).*/ 
@@ -82,7 +82,11 @@ void* copy_chunk(void* arg)
     lseek(src_fd, data->start, SEEK_SET);
     lseek(dest_fd, data->start, SEEK_SET);
 
-    char buffer[BUFFER_SIZE];
+     char *buffer = malloc(BUFFER_SIZE);
+if (!buffer) {
+    perror("malloc failed");
+    pthread_exit(NULL);
+}
     off_t bytes_to_copy = data->size;
     ssize_t bytes_read, bytes_written;
 
